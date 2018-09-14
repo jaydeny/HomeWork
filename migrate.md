@@ -23,6 +23,7 @@ join china_city p on c.parentId = p.id and p.depth = 1;
 1、depth为等级，1为省级，2为市级，3为县级。
 2、```create table as select```复制另一张表数据时不会复制索引和主键。
 3、**union**不重复两张表数据
+
 **建议：**
 ```
 create table lagou_city(
