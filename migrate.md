@@ -40,7 +40,7 @@ union
 select c.id, p.cityName as province, c.cityName as city, null as district from (select * from china_city where depth=2) c
 join china_city p on c.parentId = p.id and p.depth = 1;
 ```
-### 二、lagou_company表字段**(cid,short_name,full_name,size,financestage)**数据从lagou_position_bk中获取公司id,公司简称，公司全称，公司大小，公司资金来源
+### 二、lagou_company表字段(cid,short_name,full_name,size,financestage)数据从lagou_position_bk中获取公司id,公司简称，公司全称，公司大小，公司资金来源
 * 方法：
 ```
 drop table if exists lagou_company;
