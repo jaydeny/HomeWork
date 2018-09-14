@@ -1,8 +1,8 @@
 # HomeWork
-##分割表(Data-Migrate)
+## 分割表(Data-Migrate)
 1、两个源表：==china_city==,==lagou_position_bk==。
 2、整理数据，分成三个表：lagou_city,lagou_position,lagou_company。
-###一、lagou_city表字段**(cid,province,city,district)**数据从表china_city获取省市县数据。
+### 一、lagou_city表字段**(cid,province,city,district)**数据从表china_city获取省市县数据。
 *方法：*
 ```
 create table lagou_city as
@@ -40,7 +40,7 @@ union
 select c.id, p.cityName as province, c.cityName as city, null as district from (select * from china_city where depth=2) c
 join china_city p on c.parentId = p.id and p.depth = 1;
 ```
-###二、lagou_company表字段**(cid,short_name,full_name,size,financestage)**数据从lagou_position_bk中获取公司id,公司简称，公司全称，公司大小，公司资金来源
+### 二、lagou_company表字段**(cid,short_name,full_name,size,financestage)**数据从lagou_position_bk中获取公司id,公司简称，公司全称，公司大小，公司资金来源
 *方法：*
 ```
 drop table if exists lagou_company;
@@ -54,7 +54,7 @@ select distinct t.company_id as cid,
 ```
 代码解析：确认数据库是否已经存在lagou_company,如果存在则删除。
 从表lagou_position_bk中查询出```distinct```不重复公司信息复制到新表当中。
-###三、从lagou_position_bk表中分离出城市、公司信息
+### 三、从lagou_position_bk表中分离出城市、公司信息
 *方法：*
 ```
 create table lagou_position
@@ -77,5 +77,5 @@ select pid, cid as city, company_id as company, position, field, salary_min, sal
 联合查询出于上面相反有县级信息数据，
 最后查询出需要字段，复制到新表lagou_position中。
 *注意：*最后查询出数据必须要As成一张临时表，否则报错。
-###四、总结
+### 四、总结
 经过本次对表数据进行拆分整理后，对sql语句有了新的认识，学会做之前先整理好思路，并且对连接查询有了新的认识。
